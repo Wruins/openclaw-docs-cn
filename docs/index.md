@@ -48,6 +48,8 @@ features:
 | ⚙️ | [模型配置](/beginner/config/models) | 配置 AI 模型（推荐 Node 24） |
 | 📱 | [飞书接入](/beginner/config/feishu) | **重点！** 飞书集成配置（已捆绑） |
 | 💼 | [企业微信](/beginner/config/wecom) | 企业微信集成 |
+| 🌐 | [Tailscale 远程访问](/beginner/config/tailscale) | **新增！** 安全的远程访问配置 |
+| 🔄 | [自动更新器](/beginner/config/auto-update) | **新增！** 自动更新配置指南 |
 
 ---
 
@@ -129,21 +131,35 @@ openclaw pairing list
 openclaw pairing approve <channel> <code>
 ```
 
-## 🔥 最新更新 (2026-03-16)
+## 🔥 最新更新 (2026-03-18)
 
 - ✅ **Pi Agent** 现为唯一支持的 coding agent
 - ✅ **安装脚本** 支持自动检测和升级
 - ✅ **飞书插件** 已捆绑，无需单独安装
-- ✅ **Tailscale 集成** 支持安全的远程访问
-- ✅ **自动更新器** 可选配置（默认关闭）
+- ✅ **Tailscale 集成** 支持安全的远程访问（Serve/Funnel 模式）
+- ✅ **自动更新器** 可选配置（默认关闭，支持 stable/beta/dev 频道）
+- ✅ **22 个聊天渠道** 完整支持（WhatsApp, Telegram, Discord, 飞书等）
+- 📚 **官方文档索引**: https://docs.openclaw.ai/llms.txt (200+ 页面)
+
+### 📖 新增中文文档
+
+- [Tailscale 远程访问配置指南](/beginner/config/tailscale) - 完整的 Serve/Funnel 模式说明
+- [自动更新器配置指南](/beginner/config/auto-update) - 自动更新、版本回滚、频道切换
 
 ## 📞 获取帮助
 
 - 📚 [官方文档](https://docs.openclaw.ai) - 英文官方文档（Mintlify）
-- 📑 [文档索引](https://docs.openclaw.ai/llms.txt) - 完整文档列表
+- 📑 [文档索引](https://docs.openclaw.ai/llms.txt) - 完整文档列表（200+ 页面）
 - 💬 [Discord 社区](https://discord.gg/clawd) - 加入社区讨论
 - 🐛 [问题反馈](https://github.com/openclaw/openclaw/issues) - 提交 Bug
 - 🏥 [健康检查](https://docs.openclaw.ai/gateway/doctor) - 运行 `openclaw doctor`
+
+### 🆕 新增官方文档类别
+
+- ⏰ **自动化**: Cron 定时任务、Webhooks、Gmail 推送、Hooks
+- 🧠 **高级概念**: 上下文引擎、模型故障转移、会话压缩
+- 🔒 **安全**: 威胁模型、形式化验证、密钥管理
+- ☁️ **部署**: DigitalOcean、Oracle Cloud、Railway、Render
 
 ## 📋 支持的聊天渠道
 

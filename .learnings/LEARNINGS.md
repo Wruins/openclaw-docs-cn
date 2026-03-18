@@ -2,6 +2,166 @@
 
 开发过程中的经验和改进建议。
 
+## 2026-03-18 - 每日文档更新 (LRN-20260318-001) ✅ 已完成
+
+**优先级**: high  
+**来源**: Cron 定时任务 (architect-daily-doc-update)  
+**完成时间**: 2026-03-18 18:00
+
+### 今日重点更新
+
+#### 1. 新增文档：Tailscale 远程访问配置指南
+
+**文件**: `docs/beginner/config/tailscale.md`
+
+**内容覆盖**:
+- 三种访问模式详解（Serve / Tailnet IP / Funnel）
+- 完整配置示例和安全建议
+- Tailscale 安装和前置要求
+- 故障排除指南
+- 浏览器控制远程配置
+
+**关键配置**:
+```json5
+// Serve 模式（推荐 - Tailnet 内网）
+{
+  gateway: {
+    bind: "loopback",
+    tailscale: { mode: "serve" },
+  },
+}
+
+// Funnel 模式（公开互联网）
+{
+  gateway: {
+    bind: "loopback",
+    tailscale: { mode: "funnel" },
+    auth: { mode: "password" },  // 必需
+  },
+}
+```
+
+**前置要求**:
+- Tailscale CLI 已安装并登录
+- Serve 需要 tailnet 启用 HTTPS
+- Funnel 需要 v1.38.3+、MagicDNS、HTTPS、仅支持端口 443/8443/10000
+
+---
+
+#### 2. 新增文档：自动更新器配置指南
+
+**文件**: `docs/beginner/config/auto-update.md`
+
+**内容覆盖**:
+- 更新频道说明（stable / beta / dev）
+- 自动更新器配置详解
+- 手动更新命令参考
+- 版本回滚方法
+- 故障排除
+
+**推荐配置**:
+```json5
+{
+  update: {
+    channel: "stable",
+    auto: {
+      enabled: true,
+      stableDelayHours: 6,
+      stableJitterHours: 12,
+      betaCheckIntervalHours: 1
+    }
+  }
+}
+```
+
+**行为说明**:
+- `stable`: 检测到新版本后等待 6 小时 + 随机抖动 0-12 小时
+- `beta`: 每小时检查一次，有更新立即应用
+- `dev`: 不自动更新，需手动执行 `openclaw update`
+
+**推荐更新方式**（官方推荐）:
+```bash
+# macOS/Linux
+curl -fsSL https://openclaw.ai/install.sh | bash
+
+# Windows PowerShell
+iwr -useb https://openclaw.ai/install.ps1 | iex
+```
+
+---
+
+#### 3. 首页更新
+
+**文件**: `docs/index.md`
+
+**变更内容**:
+- 更新"最新更新"部分为 2026-03-18
+- 新增两个文档链接到导航表格
+- 更新 Tailscale 和自动更新器说明
+
+---
+
+### 官方文档同步状态
+
+| 类别 | 官方 | 中文 | 同步率 | 优先级 |
+|------|------|------|--------|--------|
+| 渠道支持 | 22 个 | 22 个 | 100% ✅ | - |
+| CLI 命令 | 40+ | 15+ | ~40% ⚠️ | 中 |
+| 模型提供商 | 30+ | 8+ | ~25% ⚠️ | 中 |
+| 安全文档 | 完整 | 基础 | ~30% ⚠️ | 高 |
+| 移动端节点 | 详细 | 简略 | ~20% ⚠️ | 高 |
+| 自动化功能 | 完整 | 部分 | ~40% ⚠️ | 中 |
+| **更新流程** | **详细** | **✅ 已补充** | **~90% ✅** | **高** |
+| **Tailscale** | **详细** | **✅ 已补充** | **~90% ✅** | **高** |
+
+---
+
+### GitHub 仓库动态 (2026-03-18)
+
+**仓库**: https://github.com/openclaw/openclaw
+
+**统计**:
+- Issues 总数：5000+
+- PRs 总数：5000+
+- Security Advisories: 288
+
+**今日活跃 Issue 作者**: @crfzly, @Jwarm, @wronps
+
+**最新 Commit**: `8f6668b docs: 添加 README.md - OpenClaw 中文文档站介绍`
+
+---
+
+### 后续优先级
+
+**高优先级（本周）**:
+- [x] ✅ 补充自动更新器配置指南
+- [x] ✅ 添加 Tailscale 远程访问详细教程
+- [x] ✅ 更新安装指南，强调推荐更新方式
+- [ ] 补充 Gateway 服务管理命令参考
+- [ ] 添加移动端节点配置指南（iOS/Android）
+
+**中优先级（下周）**:
+- [ ] 补充常用 CLI 命令详细说明
+- [ ] 添加版本回滚/固定指南
+- [ ] 补充本地模型部署指南（Ollama, vLLM）
+- [ ] 添加模型故障转移配置示例
+
+**低优先级（后续）**:
+- [ ] 补充 Cron 定时任务使用指南
+- [ ] 添加 Webhook 配置示例
+- [ ] 补充安全最佳实践文档
+
+---
+
+### 输出文件
+
+1. `docs/beginner/config/tailscale.md` - Tailscale 远程访问配置指南（新增）
+2. `docs/beginner/config/auto-update.md` - 自动更新器配置指南（新增）
+3. `docs/index.md` - 首页更新（修改）
+4. `.learnings/UPDATE-2026-03-18.md` - 今日更新摘要（自动生成）
+
+---
+
 ## 2026-03-16
 
 ### 项目创建
@@ -146,6 +306,80 @@
 
 ---
 
+## 2026-03-17 - 每日文档更新 (LRN-20260317-001) ✅ 已完成
+
+**优先级**: high  
+**来源**: Cron 定时任务 (architect-daily-doc-update)  
+**完成时间**: 2026-03-17 18:00
+
+### 更新内容
+
+#### 1. 官方文档结构分析
+- 官方文档使用 Mintlify 平台（非 VitePress）
+- 提供完整文档索引：https://docs.openclaw.ai/llms.txt
+- 文档类别：Automation, Channels, CLI, Concepts, Gateway, Help, Install, Nodes, Platforms, Plugins, Providers, Reference, Security, Start
+
+#### 2. 新增文档类别识别
+**自动化 (6 个新页面)**:
+- Cron Jobs, Webhooks, Gmail PubSub, Hooks, Polls, Auth Monitoring
+
+**高级概念 (8 个新页面)**:
+- Context Engine, Model Failover, Session Pruning, Compaction, Usage Tracking, 等
+
+**安全 (3 个新页面)**:
+- THREAT MODEL ATLAS, CONTRIBUTING THREAT MODEL, Formal Verification
+
+**部署平台 (7 个新增)**:
+- DigitalOcean, Oracle Cloud, Northflank, Railway, Render, Hetzner, GCP
+
+#### 3. CLI 命令扩展
+官方文档新增 25+ CLI 命令参考页面，包括：
+- acp, agent, agents, approvals, browser, cron, daemon, devices, dns
+- memory, models, node, nodes, plugins, qr, reset, sandbox, secrets
+- security, sessions, skills, status, tui, voicecall, webhooks
+
+#### 4. 模型提供商确认
+官方支持 30+ 模型提供商，中文文档已覆盖 8+ 主流提供商：
+- ✅ Qwen, GLM, Moonshot AI, Qianfan (已覆盖)
+- ⚠️ MiniMax, Z.AI, Xiaomi MiMo (可补充)
+- ⚠️ Ollama, vLLM, Litellm (本地部署，可补充)
+
+#### 5. 移动端节点功能
+官方详细文档涵盖：
+- Canvas, Camera Capture, Audio/Voice Notes, Talk Mode, Voice Wake
+- Location Command, Media Understanding, Image/Media Support
+- 中文文档可补充移动端配置和使用指南
+
+### 文档同步状态
+
+| 类别 | 官方 | 中文 | 同步率 |
+|------|------|------|--------|
+| 渠道支持 | 22 个 | 22 个 | 100% ✅ |
+| CLI 命令 | 40+ | 15+ | ~40% ⚠️ |
+| 模型提供商 | 30+ | 8+ | ~25% ⚠️ |
+| 安全文档 | 完整 | 基础 | ~30% ⚠️ |
+| 移动端节点 | 详细 | 简略 | ~20% ⚠️ |
+| 自动化功能 | 完整 | 部分 | ~40% ⚠️ |
+
+### 后续优先级
+
+**高优先级**:
+1. 移动端节点配置指南（iOS/Android）
+2. Tailscale 远程访问详细教程
+3. 模型故障转移配置示例
+4. 常用 CLI 命令详细说明
+
+**中优先级**:
+1. 本地模型部署指南（Ollama, vLLM）
+2. Cron 定时任务使用指南
+3. Webhook 配置示例
+4. 安全最佳实践文档
+
+### 输出文件
+- `.learnings/UPDATE-2026-03-17.md` - 今日更新摘要
+
+---
+
 ## 2026-03-16 - 测试报告 (LRN-20260316-002) ✅ 测试完成
 
 **优先级**: high  
@@ -201,5 +435,123 @@
 1. `test/test-report.md` - 完整测试报告
 2. `test/bug-report.md` - Bug 报告（本次无 Bug）
 3. `test/checklist.md` - 测试清单
+
+---
+
+## 2026-03-18 - 每日文档更新 (LRN-20260318-001) ✅ 已完成
+
+**优先级**: high  
+**来源**: Cron 定时任务 (architect-daily-doc-update)  
+**完成时间**: 2026-03-18 13:32
+
+### 今日重点发现
+
+#### 1. 更新流程优化（高优先级）
+**官方推荐的更新方式**：重新运行安装脚本
+```bash
+# macOS/Linux
+curl -fsSL https://openclaw.ai/install.sh | bash
+
+# Windows PowerShell  
+iwr -useb https://openclaw.ai/install.ps1 | iex
+```
+
+**自动更新器配置**（核心功能，默认关闭）:
+```json
+{
+  "update": {
+    "channel": "stable",
+    "auto": {
+      "enabled": true,
+      "stableDelayHours": 6,
+      "stableJitterHours": 12,
+      "betaCheckIntervalHours": 1
+    }
+  }
+}
+```
+
+**行为说明**:
+- `stable`: 检测到新版本后等待 6 小时 + 随机抖动 0-12 小时
+- `beta`: 每小时检查一次，有更新立即应用
+- `dev`: 不自动更新，需手动执行 `openclaw update`
+
+**中文文档缺口**: 需要补充自动更新器配置说明和推荐更新流程
+
+#### 2. Tailscale 远程访问详解（高优先级）
+**三种模式**:
+- `serve`: Tailnet 内网访问，支持 Tailscale 身份头免认证
+- `bind: tailnet`: 直接绑定 Tailnet IP，需 token 认证
+- `funnel`: 公开互联网访问，强制要求密码认证
+
+**安全要求**:
+- `funnel` 模式必须配置 `gateway.auth.mode: "password"`
+- Serve 模式可使用 Tailscale 身份头（仅限可信主机）
+- HTTP API 端点始终需要 token/密码认证
+
+**前置要求**:
+- Tailscale CLI 必须安装并登录
+- Serve 需要 tailnet 启用 HTTPS
+- Funnel 要求 Tailscale v1.38.3+、MagicDNS、HTTPS 启用
+- Funnel 仅支持端口 `443`, `8443`, `10000`（TLS）
+
+**中文文档缺口**: Tailscale 配置教程完全缺失，需尽快补充
+
+#### 3. GitHub 仓库活跃度
+- Issues 总数：5000+
+- PRs 总数：5000+
+- 今日新增 Issues: 10+ (Mar 18, 2026)
+- Security Advisories: 288
+
+**活跃 Issue 作者**（今日）: @crfzly, @Jwarm, @wronps
+
+#### 4. 更新频道确认
+| 频道 | NPM Tag | 说明 | 适用场景 |
+|------|---------|------|----------|
+| `stable` | `latest` | 稳定版（带版本标签） | 生产环境 |
+| `beta` | `beta` | 预发布版（`vYYYY.M.D-beta.N`） | 测试新功能 |
+| `dev` | `dev` | 开发版（main 分支 HEAD） | 开发者测试 |
+
+**切换频道命令**:
+```bash
+openclaw update --channel stable|beta|dev
+openclaw update --tag main  # 使用 GitHub main 分支最新
+```
+
+### 文档同步状态更新
+
+| 类别 | 官方 | 中文 | 同步率 | 优先级 |
+|------|------|------|--------|--------|
+| 渠道支持 | 22 个 | 22 个 | 100% ✅ | - |
+| CLI 命令 | 40+ | 15+ | ~40% ⚠️ | 中 |
+| 模型提供商 | 30+ | 8+ | ~25% ⚠️ | 中 |
+| 安全文档 | 完整 | 基础 | ~30% ⚠️ | 高 |
+| 移动端节点 | 详细 | 简略 | ~20% ⚠️ | 高 |
+| 自动化功能 | 完整 | 部分 | ~40% ⚠️ | 中 |
+| **更新流程** | **详细** | **简略** | **~20% ⚠️** | **高** |
+| **Tailscale** | **详细** | **缺失** | **~0% ❌** | **高** |
+
+### 新增行动项
+
+**高优先级（本周）**:
+- [ ] 补充自动更新器配置指南到 `docs/beginner/config/`
+- [ ] 添加 Tailscale 远程访问详细教程到 `docs/beginner/config/`
+- [ ] 更新安装指南，强调推荐更新方式
+- [ ] 补充 Gateway 服务管理命令参考
+
+**中优先级（下周）**:
+- [ ] 补充更新频道详解
+- [ ] 添加版本回滚/固定指南
+- [ ] 补充常用 CLI 命令详细说明
+- [ ] 添加移动端节点配置指南（iOS/Android）
+
+**低优先级（后续）**:
+- [ ] 补充本地模型部署指南（Ollama, vLLM）
+- [ ] 添加模型故障转移配置示例
+- [ ] 补充 Cron 定时任务使用指南
+- [ ] 添加安全最佳实践文档
+
+### 输出文件
+- `.learnings/UPDATE-2026-03-18.md` - 今日更新摘要
 
 ---
