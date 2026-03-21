@@ -594,3 +594,65 @@ openclaw update --tag main  # 使用 GitHub main 分支最新
 - `.learnings/UPDATE-2026-03-18.md` - 今日更新摘要
 
 ---
+
+## 2026-03-21 - 每日文档更新 (LRN-20260321-001) ✅ 已完成
+
+**优先级**: high  
+**来源**: Cron 定时任务 (architect-daily-doc-update)  
+**完成时间**: 2026-03-21 13:40
+
+### 今日同步状态
+
+**官方文档**: https://docs.openclaw.ai/llms.txt (200+ 页面)
+
+**关键发现**:
+- 官方文档结构稳定，无重大变更
+- 中文文档核心功能覆盖率 ~90%（高优先级项目）
+- 渠道支持 100% 完整（22 个渠道）
+- Tailscale 和自动更新器文档已完整
+
+**文档同步率概览**:
+
+| 类别 | 官方 | 中文 | 同步率 | 优先级 |
+|------|------|------|--------|--------|
+| 渠道支持 | 22 个 | 22 个 | 100% ✅ | - |
+| 更新流程 | 详细 | 详细 | ~90% ✅ | 高 |
+| Tailscale | 详细 | 详细 | ~90% ✅ | 高 |
+| CLI 命令 | 45+ | 15+ | ~35% ⚠️ | 中 |
+| 模型提供商 | 35+ | 8+ | ~25% ⚠️ | 中 |
+| 安全文档 | 完整 | 基础 | ~40% ⚠️ | 高 |
+| 移动端节点 | 详细 | 简略 | ~30% ⚠️ | 高 |
+| 自动化功能 | 完整 | 部分 | ~40% ⚠️ | 中 |
+
+**后续优先级**:
+1. 补充常用 CLI 命令（doctor, health, security 等）
+2. 添加移动端节点配置指南（iOS/Android）
+3. 补充安全最佳实践文档
+4. 补充模型提供商（MiniMax, Z.AI, Ollama, vLLM）
+
+### 官方文档核心内容确认
+
+**安装流程**（官方推荐）:
+```bash
+# macOS/Linux
+curl -fsSL https://openclaw.ai/install.sh | bash
+
+# Windows PowerShell
+iwr -useb https://openclaw.ai/install.ps1 | iex
+
+# 运行配置向导
+openclaw onboard --install-daemon
+
+# 打开控制面板
+openclaw dashboard
+```
+
+**系统要求**:
+- Node.js 24（推荐）或 Node.js 22.16+ LTS
+- Pi 是唯一内置支持的 coding agent
+- 支持 22+ 聊天渠道
+
+### 输出文件
+- `.learnings/UPDATE-2026-03-21.md` - 今日更新摘要
+
+---
